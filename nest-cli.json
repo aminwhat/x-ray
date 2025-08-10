@@ -28,6 +28,15 @@
         "tsConfigPath": "apps/producer/tsconfig.app.json"
       }
     },
+    "shared.logger": {
+      "type": "library",
+      "root": "libs/shared.logger",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared.logger/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared.logger/tsconfig.lib.json"
+      }
+    },
     "x-ray": {
       "type": "application",
       "root": "apps/x-ray",

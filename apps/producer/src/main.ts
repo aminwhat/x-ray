@@ -2,9 +2,15 @@ import { NestFactory } from '@nestjs/core';
 import { ProducerModule } from './producer.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { SharedLoggerService } from '@app/shared.logger';
+import morgan from 'morgan';
+import cors from 'cors';
 
 async function bootstrap() {
   const app = await NestFactory.create(ProducerModule);
+  const logger = app.get<SharedLoggerService>(SharedLoggerService);
+
+  app.useLogger(app.get(SharedLoggerService));
 
   // Configure Swagger
   const config = new DocumentBuilder()
@@ -17,6 +23,17 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
+
+  app.use(cors());
+  app.use(
+    morgan('tiny', {
+      stream: {
+        write: (message: string) => {
+          logger.log(message.trim(), 'Morgan');
+        },
+      },
+    }),
+  );
 
   // Configure Dto
   app.useGlobalPipes(new ValidationPipe());
