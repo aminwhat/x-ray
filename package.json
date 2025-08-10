@@ -93,7 +93,8 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/shared.logger(|/.*)$": "<rootDir>/libs/shared.logger/src/$1"
+      "^@app/shared.logger(|/.*)$": "<rootDir>/libs/shared.logger/src/$1",
+      "^@app/shared.types(|/.*)$": "<rootDir>/libs/shared.types/src/$1"
     }
   }
 }

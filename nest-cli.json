@@ -37,6 +37,15 @@
         "tsConfigPath": "libs/shared.logger/tsconfig.lib.json"
       }
     },
+    "shared.types": {
+      "type": "library",
+      "root": "libs/shared.types",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared.types/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared.types/tsconfig.lib.json"
+      }
+    },
     "x-ray": {
       "type": "application",
       "root": "apps/x-ray",

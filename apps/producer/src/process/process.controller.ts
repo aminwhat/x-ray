@@ -12,7 +12,7 @@ export class ProcessController {
   }
 
   @Post('startAndGetAnswer')
-  startProcessAndGetData(@Body() model: StartProcessDto) {
-    return this.processService.startProcessAndGetData(model);
+  async startProcessAndGetData(@Body() model: StartProcessDto) {
+    return await this.processService.startProcessAndGetData(model);
   }
 }

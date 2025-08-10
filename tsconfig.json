@@ -27,6 +27,12 @@
       ],
       "@app/shared.logger/*": [
         "libs/shared.logger/src/*"
+      ],
+      "@app/shared.types": [
+        "libs/shared.types/src"
+      ],
+      "@app/shared.types/*": [
+        "libs/shared.types/src/*"
       ]
     }
   }
