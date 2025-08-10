@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ConsumerModule } from './consumer.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { SharedLoggerService } from '@app/shared.logger';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -13,6 +14,16 @@ async function bootstrap() {
       },
     },
   );
-  await app.listen();
+
+  const logger = app.get<SharedLoggerService>(SharedLoggerService);
+
+  app.useLogger(app.get(SharedLoggerService));
+
+  app.listen().then(() => {
+    logger.log(
+      `Server started as Date of: ${new Date(Date.now()).toISOString()}`,
+      'BOOTSTRAP',
+    );
+  });
 }
 bootstrap();

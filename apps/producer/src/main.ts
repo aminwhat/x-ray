@@ -38,6 +38,13 @@ async function bootstrap() {
   // Configure Dto
   app.useGlobalPipes(new ValidationPipe());
 
-  await app.listen(process.env.port ?? 3000);
+  const port = process.env.port ?? 3000;
+
+  await app.listen(port, () => {
+    logger.log(
+      `Server started on port ${port} as Date of: ${new Date(Date.now()).toISOString()}`,
+      'BOOTSTRAP',
+    );
+  });
 }
 bootstrap();
