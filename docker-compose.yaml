@@ -8,3 +8,19 @@ services:
       - '5672:5672' # AMQP protocol
       - '15672:15672' # Management UI
     restart: unless-stopped
+
+  mongodb:
+    image: mongo:8.0
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: my-secret-pw
+      MONGO_INITDB_DATABASE: x-ray
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
