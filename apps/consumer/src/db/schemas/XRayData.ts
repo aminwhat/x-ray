@@ -3,7 +3,7 @@ import { HydratedDocument } from 'mongoose';
 
 export type XRayDocument = HydratedDocument<XRay>;
 
-@Schema()
+@Schema({ autoIndex: true })
 export class XRay {}
 
 export const XRaySchema = SchemaFactory.createForClass(XRay);

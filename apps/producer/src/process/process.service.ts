@@ -21,14 +21,14 @@ export class ProcessService {
     };
   }
 
-  async startProcessAndGetData(
-    model: StartProcessDto,
+  async getData(
+    model: Partial<StartProcessDto>,
   ): Promise<CommonResponse<string>> {
     let result: CommonResponse<string>;
 
     try {
       const observed = this.rabbitClient
-        .send('x-ray', model)
+        .send({ cmd: 'x-ray-signal' }, model ?? {})
         .pipe(timeout(5000));
 
       result = await firstValueFrom(observed);

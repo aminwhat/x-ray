@@ -9,4 +9,8 @@ export class ConsumerService {
   async handleStartProcess(model: StartProcessDto) {
     await this.dbService.insertXRayDataFromStartProcess(model);
   }
+
+  async handleGetData(model: Partial<StartProcessDto>) {
+    return await this.dbService.getXRayByFilter(model);
+  }
 }

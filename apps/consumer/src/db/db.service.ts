@@ -14,4 +14,8 @@ export class DbService {
     const newModel = new this.xRayModel(parsedModel);
     await newModel.save();
   }
+
+  async getXRayByFilter(filter: Partial<StartProcessDto>) {
+    return await this.xRayModel.find(filter).exec();
+  }
 }
