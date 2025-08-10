@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/x-ray/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/x-ray/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/x-ray",
+  "projects": {
+    "consumer": {
+      "type": "application",
+      "root": "apps/consumer",
+      "entryFile": "main",
+      "sourceRoot": "apps/consumer/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/consumer/tsconfig.app.json"
+      }
+    },
+    "producer": {
+      "type": "application",
+      "root": "apps/producer",
+      "entryFile": "main",
+      "sourceRoot": "apps/producer/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/producer/tsconfig.app.json"
+      }
+    },
+    "x-ray": {
+      "type": "application",
+      "root": "apps/x-ray",
+      "entryFile": "main",
+      "sourceRoot": "apps/x-ray/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/x-ray/tsconfig.app.json"
+      }
+    }
+  }
+}
