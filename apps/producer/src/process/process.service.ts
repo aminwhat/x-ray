@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { StartProcessDto } from './dto';
+import { FilterProcessDto, ProcessDataDetails, StartProcessDto } from './dto';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom, timeout } from 'rxjs';
 import { SharedLoggerService } from '@app/shared.logger';
@@ -11,8 +11,57 @@ export class ProcessService {
 
   constructor(@Inject('XRAY_SERVICE') private rabbitClient: ClientProxy) {}
 
-  startProcess(model: StartProcessDto): CommonResponse<string> {
-    this.rabbitClient.emit('x-ray', model);
+  convertBodyToDto(body: any): CommonResponse<StartProcessDto[]> {
+    try {
+      const result: StartProcessDto[] = [];
+
+      for (const deviceId in body) {
+        if (!Object.prototype.hasOwnProperty.call(body, deviceId)) continue;
+
+        const deviceData = body[deviceId];
+        const { data, time: recordedDate } = deviceData;
+
+        const details: ProcessDataDetails[] = data.map((entry: any[]) => {
+          const [time, [latitude, longitude, speed]] = entry;
+          return {
+            time,
+            latitude,
+            longitude,
+            speed,
+          };
+        });
+
+        result.push({
+          deviceId,
+          details,
+          RecordedDate: recordedDate,
+        });
+      }
+
+      if (result.length === 0) {
+        throw new Error('Body is Empty');
+      }
+
+      return {
+        succeed: true,
+        data: result,
+        message: null,
+      };
+    } catch (error) {
+      this.logger.error(error);
+
+      return {
+        succeed: false,
+        data: null,
+        message: 'Failed to convert body to DTO: ' + error.message,
+      };
+    }
+  }
+
+  startProcess(models: StartProcessDto[]): CommonResponse<string> {
+    for (const md of models) {
+      this.rabbitClient.emit('x-ray', md);
+    }
 
     return {
       succeed: true,
@@ -21,10 +70,8 @@ export class ProcessService {
     };
   }
 
-  async getData(
-    model: Partial<StartProcessDto>,
-  ): Promise<CommonResponse<string>> {
-    let result: CommonResponse<string>;
+  async getData(model: FilterProcessDto): Promise<CommonResponse<string>> {
+    let result: CommonResponse<any>;
 
     try {
       const observed = this.rabbitClient

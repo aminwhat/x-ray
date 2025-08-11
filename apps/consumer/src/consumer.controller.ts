@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { ConsumerService } from './consumer.service';
 import { EventPattern, MessagePattern, Payload } from '@nestjs/microservices';
-import { StartProcessDto } from './dto';
+import { FilterProcessDto, StartProcessDto } from './dto';
 
 @Controller()
 export class ConsumerController {
@@ -13,7 +13,7 @@ export class ConsumerController {
   }
 
   @MessagePattern({ cmd: 'x-ray-signal' })
-  async handleGetData(@Payload() model: Partial<StartProcessDto>) {
+  async handleGetData(@Payload() model: FilterProcessDto) {
     return await this.consumerService.handleGetData(model);
   }
 }

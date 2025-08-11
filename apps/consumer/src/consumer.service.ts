@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { StartProcessDto } from './dto';
+import { FilterProcessDto, StartProcessDto } from './dto';
 import { DbService } from './db/db.service';
+import { CommonResponse } from '@app/shared.types';
+import { XRay } from './db/schemas';
 
 @Injectable()
 export class ConsumerService {
@@ -10,7 +12,15 @@ export class ConsumerService {
     await this.dbService.insertXRayDataFromStartProcess(model);
   }
 
-  async handleGetData(model: Partial<StartProcessDto>) {
-    return await this.dbService.getXRayByFilter(model);
+  async handleGetData(
+    model: FilterProcessDto,
+  ): Promise<CommonResponse<XRay[]>> {
+    const filterResult = await this.dbService.getXRayByFilter(model);
+
+    return {
+      succeed: true,
+      data: filterResult,
+      message: null,
+    };
   }
 }

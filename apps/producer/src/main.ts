@@ -16,7 +16,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('X-Ray Project')
     .setDescription(
-      'A sample of Collecting data from IOT devices and then pass it through microservices',
+      'A microservices sample of Collecting data from IOT devices and then pass it through a message broker',
     )
     .setVersion('1.0')
     .addTag('x-ray')
