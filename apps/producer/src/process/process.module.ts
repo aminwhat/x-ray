@@ -9,7 +9,10 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       {
         name: 'XRAY_SERVICE',
         transport: Transport.RMQ,
-        options: { urls: ['amqp://localhost:5672'], queue: 'x-ray-queue' },
+        options: {
+          urls: [process.env.RABBIT_MQ_URI ?? 'amqp://localhost:5672'],
+          queue: 'x-ray-queue',
+        },
       },
     ]),
   ],

@@ -1,6 +1,32 @@
-version: '3.8'
-
 services:
+  producer:
+    build:
+      context: .
+      dockerfile: Dockerfile.producer
+    restart: unless-stopped
+    depends_on:
+      - rabbitmq
+      - mongodb
+    ports:
+      - '3000:3000'
+    environment:
+      RABBIT_MQ_URI: amqp://rabbitmq:5672
+
+  consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile.consumer
+    restart: unless-stopped
+    depends_on:
+      - rabbitmq
+      - mongodb
+    environment:
+      RABBIT_MQ_URI: amqp://rabbitmq:5672
+      MONGO_URI: mongodb://mongodb:27017
+      MONGO_DB: x-ray
+      MONGO_USERNAME: root
+      MONGO_PASSWORD: my-secret-pw
+
   rabbitmq:
     image: rabbitmq:3.10-management
     container_name: rabbitmq
