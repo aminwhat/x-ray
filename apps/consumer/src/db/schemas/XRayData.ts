@@ -20,9 +20,6 @@ export class XRay extends ICommon {
 
   @Prop({ required: false, type: Number })
   speed?: number;
-
-  @Prop({ required: true, index: true })
-  RecordedDate: Date;
 }
 
 export const XRaySchema = SchemaFactory.createForClass(XRay);

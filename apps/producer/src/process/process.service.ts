@@ -11,6 +11,7 @@ export class ProcessService {
 
   constructor(@Inject('XRAY_SERVICE') private rabbitClient: ClientProxy) {}
 
+  // Due to format of the Input Data I had to write a custom body validator, Couldn't find a way to implement the Input format data by using NestJs dto and class-validators
   convertBodyToDto(body: any): CommonResponse<StartProcessDto[]> {
     try {
       const result: StartProcessDto[] = [];

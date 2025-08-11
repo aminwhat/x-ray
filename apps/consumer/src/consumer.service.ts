@@ -10,6 +10,12 @@ export class ConsumerService {
 
   async handleStartProcess(model: StartProcessDto) {
     await this.dbService.insertXRayDataFromStartProcess(model);
+    await this.dbService.insertXRayCount({
+      deviceId: model.deviceId,
+      RecordedDate: new Date(model.RecordedDate),
+      dataArrayCount: model.details.length,
+      createdDate: new Date(Date.now()),
+    });
   }
 
   async handleGetData(

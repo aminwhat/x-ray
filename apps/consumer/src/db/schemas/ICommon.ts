@@ -4,4 +4,7 @@ import { Prop, Schema } from '@nestjs/mongoose';
 export abstract class ICommon {
   @Prop({ default: Date.now, required: false, type: Date })
   createdDate: Date;
+
+  @Prop({ required: true, index: true })
+  RecordedDate: Date;
 }

@@ -1,12 +1,15 @@
 import { Global, Module } from '@nestjs/common';
 import { DbService } from './db.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { XRay, XRaySchema } from './schemas';
+import { XRay, XRayCount, XRayCountSchema, XRaySchema } from './schemas';
 
 @Global()
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: XRay.name, schema: XRaySchema }]),
+    MongooseModule.forFeature([
+      { name: XRay.name, schema: XRaySchema },
+      { name: XRayCount.name, schema: XRayCountSchema },
+    ]),
   ],
   providers: [DbService],
   exports: [DbService],
