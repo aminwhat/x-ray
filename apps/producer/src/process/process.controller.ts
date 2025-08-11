@@ -116,6 +116,30 @@ export class ProcessController {
       'application/json': {
         example: {
           succeed: true,
+          data: [
+            {
+              _id: '6899a2a9aa9645706b4d6fd3',
+              RecordedDate: '2024-12-31T22:18:00.000Z',
+              deviceId: '66bb584d4ae73e488c30a072',
+              time: 762,
+              latitude: 51.339764,
+              longitude: 12.339223833333334,
+              speed: 1.2038000000000002,
+              createdDate: '2025-08-11T07:58:33.580Z',
+              __v: 0,
+            },
+            {
+              _id: '6899a2a9aa9645706b4d6fd5',
+              RecordedDate: '2024-12-31T22:18:00.000Z',
+              deviceId: '66bb584d4ae73e488c30a072',
+              time: 1766,
+              latitude: 51.33977733333333,
+              longitude: 12.339211833333334,
+              speed: 1.531604,
+              createdDate: '2025-08-11T07:58:33.588Z',
+              __v: 0,
+            },
+          ],
         },
       },
     },
