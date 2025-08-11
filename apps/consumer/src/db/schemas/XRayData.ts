@@ -9,17 +9,17 @@ export class XRay extends ICommon {
   @Prop({ required: true, index: true })
   deviceId: string;
 
-  @Prop({ required: true, type: Number })
-  time: number;
+  @Prop({ required: false, type: Number })
+  time?: number;
 
-  @Prop({ required: true, type: Number })
-  latitude: number; // x
+  @Prop({ required: false, type: Number })
+  latitude?: number; // x
 
-  @Prop({ required: true, type: Number })
-  longitude: number; // y
+  @Prop({ required: false, type: Number })
+  longitude?: number; // y
 
-  @Prop({ required: true, type: Number })
-  speed: number;
+  @Prop({ required: false, type: Number })
+  speed?: number;
 
   @Prop({ required: true, index: true })
   RecordedDate: Date;

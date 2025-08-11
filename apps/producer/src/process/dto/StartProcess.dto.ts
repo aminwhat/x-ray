@@ -1,8 +1,8 @@
 export class ProcessDataDetails {
-  time: number;
-  latitude: number;
-  longitude: number;
-  speed: number;
+  time?: number;
+  latitude?: number;
+  longitude?: number;
+  speed?: number;
 }
 
 export class StartProcessDto {

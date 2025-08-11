@@ -22,7 +22,17 @@ export class ProcessService {
         const { data, time: recordedDate } = deviceData;
 
         const details: ProcessDataDetails[] = data.map((entry: any[]) => {
-          const [time, [latitude, longitude, speed]] = entry;
+          let time: number | undefined,
+            latitude: number | undefined,
+            longitude: number | undefined,
+            speed: number | undefined;
+
+          if (entry.length === 2) {
+            [time, [latitude, longitude, speed]] = entry;
+          } else {
+            [latitude, longitude, speed] = entry[0];
+          }
+
           return {
             time,
             latitude,
